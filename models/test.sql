@@ -1,4 +1,4 @@
 select 
 *
-from {{ source('demo', 'call_center') }}
+from {{ source('demo', 'weather') }}
 limit 10
