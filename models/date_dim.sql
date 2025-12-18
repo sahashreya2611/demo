@@ -1,3 +1,6 @@
+{{ config(materialized='table') }}
+
+
 with CTE AS (
 select
 STARTED_AT,
@@ -13,7 +16,9 @@ when month(to_timestamp(STARTED_AT)) in (12,1,2) then 'winter'
 when month(to_timestamp(STARTED_AT)) in (3,4,5,6) then 'summer'
 when month(to_timestamp(STARTED_AT)) in (7,8) then 'rainy'
 else 'autumn'
-end season
+end station_of_year,
+{{function1('STARTED_AT')}},
+{{function2('STARTED_AT')}}
 from {{ source('demo', 'bike') }}
 where STARTED_AT!='started_at'
 )
